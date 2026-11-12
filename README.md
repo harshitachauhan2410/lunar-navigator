@@ -1,5 +1,5 @@
 # Lunar Landing Navigator
-NASA Space Apps Challenge 2026: [paste the official challenge title].
+NASA Space Apps Challenge 2026: Lunar Landing Site Navigator
 
 Live demo: https://harshitachauhan2410.github.io/lunar-navigator/
 
@@ -22,6 +22,7 @@ The Sun and Earth positions use an approximate model (about one degree). Terrain
 docs/METHODOLOGY.md, docs/DATA_SOURCES.md, docs/LIMITATIONS.md, CHANGELOG.md
 
 ## Credits
-Moon imagery: NASA https://spaceplace.nasa.gov/all-about-the-moon/en/the-moon-near-side.en.jpg.
+Moon imagery: NASA https://spaceplace.na .
+sa.gov/all-about-the-moon/en/the-moon-near-side.en.jpg.
 Landing regions: NASA https://svs.gsfc.nasa.gov/4720/
 
