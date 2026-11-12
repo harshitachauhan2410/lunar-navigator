@@ -24,3 +24,4 @@ docs/METHODOLOGY.md, docs/DATA_SOURCES.md, docs/LIMITATIONS.md, CHANGELOG.md
 ## Credits
 Moon imagery: NASA https://spaceplace.nasa.gov/all-about-the-moon/en/the-moon-near-side.en.jpg.
 Landing regions: NASA https://svs.gsfc.nasa.gov/4720/
+
