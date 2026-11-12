@@ -11,5 +11,3 @@ Live demo: https://harshitachauhan2410.github.io/lunar-navigator/
 ## Limitations
 Sun and Earth positions use an approximate model (about one degree). Terrain is a single horizon angle, not real elevation data.
 
-## AI tools
-Built with help from Claude and other AI tools.
