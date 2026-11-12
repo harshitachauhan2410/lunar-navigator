@@ -26,13 +26,12 @@ canvas{width:100%;display:block;border-radius:8px}
 .lg i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:4px}
 small{color:var(--mu)}
 body{background-image:radial-gradient(1px 1px at 20px 30px,#fff8,transparent),radial-gradient(1px 1px at 120px 90px,#fff6,transparent),radial-gradient(1.5px 1.5px at 200px 150px,#fffa,transparent);background-size:240px 200px}
-.hero{display:flex;gap:22px;align-items:center;flex-wrap:wrap;padding:26px;margin-bottom:16px;border-radius:16px;border:1px solid #2a3558;background:linear-gradient(160deg,#0b1128,#04060d);color:#e8ecf8}
-.hero h1{font-size:clamp(1.5rem,5vw,2.3rem);letter-spacing:.01em;margin:.1em 0}
+.hero{display:flex;gap:22px;align-items:center;flex-wrap:wrap;padding: 34px 26px;margin-bottom:16px;border-radius:16px;border:1px solid #2a3558;background:linear-gradient(90deg,#0b1128,#04060df0 40%, #04060d66),url(assets/moon_hero.jpg) center/cover;color:#e8ecf8}
+.hero h1{font-size:clamp(1.5rem,5vw,2.3rem);letter-spacing:01em;margin: 0.1em 0;}
 .hero .sub{color:#9aa4c4;margin:0;max-width:560px}
-.eyebrow{font-size:.7rem;letter-spacing:.18em;color:#ffc247}
-.moon{width:110px;height:110px;flex:none;border-radius:50%;background:radial-gradient(circle at 62% 30%,#0000 0 9%,#8a867c55 10% 13%,#0000 14%),radial-gradient(circle at 30% 62%,#8a867c66 0 8%,#0000 9%),radial-gradient(circle at 70% 70%,#8a867c55 0 11%,#0000 12%),radial-gradient(circle at 35% 30%,#f6f3ea,#c4c0b4 55%,#5f5c56);box-shadow:inset -22px -14px 30px #000a,0 0 50px #ffc24733}
+.eyebrow{font-size:.7rem;letter-spacing:.18em;c h1olor:#ffc247}
 </style></head><body><main>
-<header class="hero"><div class="moon"></div><div><div class="eyebrow">NASA SPACE APPS 2026 · THE NEXT FRONTIER</div><h1>Lunar Landing Window Navigator</h1>
+<header class="hero"><div><div class="eyebrow">NASA SPACE APPS 2026 · THE NEXT FRONTIER</div><h1>Lunar Landing Window Navigator</h1>
 <p class="sub">Pick a site, a date and a mission length. See when the Sun and Earth are up, find the best landing windows, and see how fragile they are.</p></div></header>
 
 <section class="card"><div class="grid">
@@ -50,7 +49,7 @@ body{background-image:radial-gradient(1px 1px at 20px 30px,#fff8,transparent),ra
 <section class="card"><h2>Sun and Earth elevation at the site</h2>
 <div class="lg"><span><i style="background:var(--sun)"></i>Sun elevation</span><span><i style="background:var(--ea)"></i>Earth elevation</span><span><i style="background:#2f7bff55"></i>Earth visible (comms)</span><span><i style="background:#e5484d88"></i>Earth hidden</span><span><i style="background:var(--dk);border:1px solid var(--bd)"></i>Darkness</span></div>
 <div class="chart"><canvas id="ch" height="270"></canvas></div><div id="tip">Hover or touch the chart for values.</div></section>
-
+<section class='card'><h2>Site on the Moon</h2><canvas id='map'</canvas><small>Map: NASA/LRO.credit the exact source you used.</small></section>
 <section class="card"><h2>Best landing windows</h2><div class="grid" id="wins"></div>
 <small>Score = 60% sunlight + 40% Earth visibility during the whole mission. Tap a window to highlight it.</small></section>
 
@@ -103,7 +102,7 @@ function run(){
  $('stats').innerHTML=cards.map(x=>`<div class="card" style="margin:0"><div class="k">${x[0]}</div><div class="l">${x[1]}</div></div>`).join("");
  $('wins').innerHTML=best.map((b,i)=>`<div class="win ${i==sel?"on":""}" data-i="${i}"><b>#${i+1}: land ${fd(T[b.s])}</b><br><small>Sunlit ${(b.sf*100).toFixed(0)}% · Earth ${(b.ef*100).toFixed(0)}% · longest dark ${b.dk.toFixed(1)} d</small></div>`).join("")||"<small>Span is shorter than the mission.</small>";
  document.querySelectorAll(".win").forEach(e=>e.onclick=()=>{sel=+e.dataset.i;run()});
- chart();heat();
+ chart();heat();drawMap();
 }
 function chart(){
  const cv=$('ch'),dpr=devicePixelRatio||1,w=Math.max(cv.parentNode.clientWidth,480),h=270;
@@ -138,5 +137,12 @@ function heat(){
  if(best[sel]){const x=pl+best[sel].s/24/cols*(w-pl-6);g.strokeStyle=css("--ac");g.lineWidth=2;g.strokeRect(x-2,4+4*rh,4,rh)}
 }
 addEventListener("resize",()=>S.T&&(chart(),heat()));
+const MAP=new Image();MAP.onload=()=>S.T&&drawMap();MAP.src='assets/moon_basemap.jpg';
+function drawMap(){const cv=$('map'),dpr=devicePixelRatio||1,w=cv.parentNode.clientWidth,h=Math.round(w/2);
+ cv.style.width=w+'px';cv.style.height=h+'px';cv.width=w*dpr;cv.height=h*dpr;const g=cv.getContext('2d');g.scale(dpr,dpr);
+ if(MAP.complete&&MAP.naturalWidth)g.drawImage(MAP,0,0,w,h);else{g.fillStyle='#222';g.fillRect(0,0,w,h)}
+ const x=(S.lon+180)/360*w,y=(90-S.lat)/180*h;
+ g.strokeStyle='#ffc247';g.lineWidth=2;g.beginPath();g.arc(x,y,9,0,7);g.stroke();
+ g.fillStyle='#ffc247';g.beginPath();g.arc(x,y,3,0,7);g.fill()}
 setSite();
 </script></body></html>
